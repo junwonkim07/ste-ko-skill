@@ -1,6 +1,6 @@
 ---
 name: ste-ko
-description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기술 문서, README, 장애·작업 보고, 커밋 메시지, PR 본문, 코드 주석, Slack·Notion·이메일 업무 글, UI 문구, 오류 메시지. ASD-STE100 방식의 한국어 통제 언어 규격(STE-KO)으로 결론을 먼저 쓰고, 한 대상은 한 단어로 부르고, 이중피동·번역투·빈 동사를 걷어내고, 사실·추론·미확인을 나눈다. 사실·조건·부정·수치·확신 수준은 바꾸지 않는다. '쉽게 고쳐줘', '번역투 빼줘', '간결하게', '읽기 쉽게', 'STE-KO', '/ste-ko' 요청에 쓴다. 일상 대화 답변, 홍보·창작·법률 문구에는 쓰지 않는다. Korean controlled-language writing for docs, commits, PRs, work messages and UI copy. For English text use the asd-ste100 skill."
+description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기술 문서, README, 장애·작업 보고, 커밋 메시지, PR 본문, 코드 주석, Slack·Notion·이메일 업무 글, UI 문구, 오류 메시지. ASD-STE100 방식의 한국어 통제 언어 규격(STE-KO)으로 결론을 먼저 쓰고, 한 대상은 한 단어로 부르고, 이중피동·번역투·빈 동사를 걷어내고, 사실·추론·미확인을 나눈다. 사실·조건·부정·수치·확신 수준은 바꾸지 않는다. '쉽게 고쳐줘', '번역투 빼줘', '간결하게', '읽기 쉽게', 'STE-KO', '/ste-ko' 요청에 쓴다. 대화 답변에는 사용자가 설정으로 켰을 때 `대화` 표면으로 쓴다. 홍보·창작·법률 문구에는 쓰지 않는다. Korean controlled-language writing for docs, commits, PRs, work messages and UI copy. For English text use the asd-ste100 skill."
 ---
 
 # STE-KO
@@ -13,10 +13,10 @@ description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기
 
 | 쓴다 | 쓰지 않는다 |
 |---|---|
-| 기술 문서, README, 절차서, 장애 보고, 상태 보고 | 일상 대화 답변 (사용자가 요청하면 쓴다) |
-| 커밋 메시지, PR 본문, 코드 주석, 작업 보고 | 홍보 문안, 창작, 감상문 |
-| Slack·Notion·이메일 업무 글, 리뷰 코멘트 | 법률 문구, 계약서, 인용문 |
-| UI 문구, 버튼, 오류 메시지 | 코드, 로그, 명령어, 식별자 자체 |
+| 기술 문서, README, 절차서, 장애 보고, 상태 보고 | 홍보 문안, 창작, 감상문 |
+| 커밋 메시지, PR 본문, 코드 주석, 작업 보고 | 법률 문구, 계약서, 인용문 |
+| Slack·Notion·이메일 업무 글, 리뷰 코멘트, UI 문구 | 코드, 로그, 명령어, 식별자 자체 |
+| AI 대화 답변 (설정으로 켰을 때, 아래 "대화 답변") | |
 
 영어 글은 `asd-ste100` 스킬을 쓴다.
 
@@ -44,6 +44,18 @@ description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기
 | `UI` | 버튼, 라벨, 안내, 오류 메시지 | 12어절 (버튼 3, 라벨 5) | 2문장 |
 
 길이 신호는 상한이 아니다. 넘으면 다시 읽고, 뜻이 둘이면 나눈다. 넘었다는 이유만으로 자르지 않는다.
+
+## 대화 답변
+
+스킬은 매 답변에 불리지 않는다. 대화 답변에도 적용하려면 `references/chat-preferences.md`의 블록을 `~/.claude/CLAUDE.md`나 claude.ai 개인 설정에 넣는다.
+
+대화 답변에는 `대화` 표면 규칙을 쓴다.
+
+- 결론과 현재 상태를 첫 1-2문장에 쓴다 (6.1). 앞 턴을 되풀이하며 시작하지 않는다 (10.4).
+- 모르면 첫 문장에서 모른다고 쓴다 (10.5).
+- 되묻기는 한 번에 하나, 선택지는 3개까지 쓴다 (10.3).
+- 분량은 질문에 맞춘다 (10.15). 짧은 답에 제목을 붙이지 않고 같은 결론을 반복하지 않는다 (10.17).
+- 다음 행동은 실행이나 결정이 필요한 답에만 쓴다 (10.16).
 
 ## 반드시 지킨다
 
@@ -147,5 +159,6 @@ python3 scripts/ste-ko-lint.py --self-test
 ## 참고 파일
 
 - `references/judgment.md` — 원본보다 느슨하게 적용하는 판단 기준과 전후 예시
+- `references/chat-preferences.md` — 대화 답변에 적용하는 설정 블록 (Claude Code, claude.ai)
 - `references/upstream/SPEC.md` — STE-KO 규칙 본문 원문 (beamonic, MIT)
 - `references/upstream/dictionary.md` — 비승인 표현 대응표 원문 (beamonic, MIT)

@@ -40,7 +40,9 @@ git -C ~/.claude/skills/ste-ko pull
 - "이 PR 본문 STE-KO로 다시 써줘"
 - "무엇을 고쳤는지 표로 보여줘" (규칙 번호와 전후 비교)
 
-일상 대화 답변에는 적용하지 않습니다. 영어 글은 영어판 [asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill)을 함께 쓰면 됩니다.
+스킬은 매 답변에 불리지 않습니다. 대화 답변에도 적용하려면 [references/chat-preferences.md](references/chat-preferences.md)의 블록을 `~/.claude/CLAUDE.md`나 claude.ai 개인 설정에 넣습니다.
+
+영어 글은 영어판 [asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill)을 함께 쓰면 됩니다.
 
 ## 검사기
 
@@ -80,7 +82,7 @@ docs/장애보고.md:7	8.1	hard	범위에 물결표 `3~5` — 마크다운이 �
 | 비유 금지 | 설명 글에서는 차이를 밝히고 씁니다 |
 | `-하십시오`로 통일 | 사용자와 기존 글의 말투를 따릅니다 |
 | 모든 답을 다음 행동으로 끝냄 | 실행이나 결정이 필요한 글에만 씁니다 |
-| 매 응답에 적용 (플러그인 출력 스타일) | 남이 읽을 글에만 적용합니다 |
+| 매 응답에 강제 적용 (플러그인 출력 스타일) | 문서는 스킬로 쓰고, 대화 답변은 설정에 넣었을 때만 적용합니다 |
 
 ### 검사기
 
@@ -111,6 +113,7 @@ docs/장애보고.md:7	8.1	hard	범위에 물결표 `3~5` — 마크다운이 �
 ```
 SKILL.md                         스킬 본문 (에이전트가 읽는 규칙)
 references/judgment.md           느슨하게 적용하는 판단 기준과 전후 예시
+references/chat-preferences.md   대화 답변에 적용하는 설정 블록 (Claude Code, claude.ai)
 references/upstream/SPEC.md      STE-KO 규칙 본문 원문
 references/upstream/dictionary.md  비승인 표현 대응표 원문
 references/upstream/LICENSE      원문 라이선스 (MIT, Beamonic)

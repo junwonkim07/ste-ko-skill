@@ -26,13 +26,13 @@ class SkillFileTest(unittest.TestCase):
         self.assertLessEqual(len(desc.group(1)), 1024, "description 이 1024자를 넘는다")
 
     def test_referenced_files_exist(self):
-        for rel in ("references/judgment.md", "references/upstream/SPEC.md",
+        for rel in ("references/judgment.md", "references/chat-preferences.md", "references/upstream/SPEC.md",
                     "references/upstream/dictionary.md", "references/upstream/LICENSE",
                     "LICENSE", "NOTICE.md"):
             self.assertTrue((ROOT / rel).is_file(), f"{rel} 가 없다")
 
     def test_own_docs_have_no_hard_violations(self):
-        for rel in ("SKILL.md", "README.md", "references/judgment.md", "NOTICE.md"):
+        for rel in ("SKILL.md", "README.md", "references/judgment.md", "references/chat-preferences.md", "NOTICE.md"):
             r = run_lint(str(ROOT / rel))
             self.assertEqual(r.returncode, 0, f"{rel}:\n{r.stdout}")
 

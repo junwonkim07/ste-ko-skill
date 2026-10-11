@@ -86,15 +86,15 @@ def syllable_class(ch):
 
 
 def base_stem(term):
-    """기본형 `-다` 를 어간으로 바꾼다. `된다` → `되`, `한다` → `하`, `있다` → `있`."""
+    """기본형 `-다` 를 어간으로 바꾼다. `된다` → `되`, `나타났다` → `나타나`, `있다` → `있`."""
     body = term[:-1]
     if body.endswith("는"):
         return body[:-1]
     last = body[-1:]
-    if last and "가" <= last <= "힣":
+    if len(body) >= 2 and "가" <= last <= "힣" and last != "있":
         code = ord(last) - 0xAC00
-        if code % 28 == 4 and len(body) >= 2:  # 현재형 `-ㄴ다` 의 ㄴ 을 뗀다.
-            return body[:-1] + chr(0xAC00 + code - 4)
+        if code % 28 in (4, 20):  # 현재형 `-ㄴ다` 의 ㄴ, 과거형 `-았다` 의 ㅆ 을 뗀다.
+            return body[:-1] + chr(0xAC00 + code - code % 28)
     return body
 
 
