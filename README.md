@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/banner.jpg" alt="STE-KO — 기계를 가르치는 바른 글. 훈민정음 판본의 판면을 본뜬 배너" width="100%">
+  <img src="assets/banner.jpg" alt="STE-KO. 훈민정음 판본의 판면을 본뜬 배너" width="100%">
 </p>
 
-<h3 align="center">AI 에이전트가 한 번 읽고 행동할 수 있는 한국어 업무 글을 쓰게 하는 스킬</h3>
+<h3 align="center">읽는 사람이 한 번 읽고 행동할 수 있는 한국어 업무 글을 AI 에이전트가 쓰게 하는 스킬</h3>
 
 <p align="center">
   <a href="https://github.com/junwonkim07/ste-ko-skill/actions/workflows/test.yml"><img alt="test" src="https://github.com/junwonkim07/ste-ko-skill/actions/workflows/test.yml/badge.svg"></a>
@@ -31,11 +31,11 @@ STE-KO 스킬은 Claude Code가 한국어 기술 문서, 커밋 메시지, PR �
 ## 특징
 
 - 보고와 설명은 첫 두 문장 안에 결론과 현재 상태를 씁니다.
-- `이를 통해` 같은 번역투, `보여집니다` 같은 이중피동, `검토를 진행했습니다` 같은 빈 동사를 걷어냅니다.
+- `이를 통해` 같은 번역투, `보여집니다` 같은 이중피동, `검토를 진행했습니다` 같은 빈 동사를 고칩니다.
 - 확인한 사실, 추론, 모르는 것을 나눕니다. 실행하지 않은 테스트를 통과했다고 쓰지 않습니다.
 - `일 수 있다`, `약 30분` 같은 확신 수준과 조건, 부정, 수치는 바꾸지 않습니다. 없는 사실을 만들지 않습니다.
-- 의존성 없는 파이썬 검사기가 기계로 셀 수 있는 규칙을 잡습니다. CI와 커밋 훅에 걸 수 있습니다.
-- 설정 블록을 넣으면 Claude Code와 claude.ai의 대화 답변에도 같은 규칙이 적용됩니다.
+- 의존성 없는 파이썬 검사기가 기계로 셀 수 있는 규칙의 위반을 찾습니다. 검사기는 CI와 커밋 훅에서 돌릴 수 있습니다.
+- 설정 블록을 넣으면 Claude Code와 claude.ai의 대화 답변에도 같은 규칙을 씁니다.
 
 ## 빠른 시작
 
@@ -93,11 +93,11 @@ git -C ~/.claude/skills/ste-ko pull
   </tr>
 </table>
 
-장애 보고에서는 입력에 없는 수정 일정을 만들지 않고 자리만 표시했습니다. 커밋 메시지는 쓴 사람의 말투(`~함`)를 그대로 뒀습니다. 작업 보고는 사용자가 수치를 줬을 때만 `대부분`과 `일부`를 수치로 바꿉니다. 예시를 더 보려면 [references/judgment.md](references/judgment.md)를 읽습니다.
+장애 보고에서는 입력에 없는 수정 일정을 만들지 않고 자리만 표시했습니다. 커밋 메시지는 쓴 사람의 말투(`~함`)를 그대로 뒀습니다. 작업 보고 예시는 사용자가 테이블 수와 실패 원인을 알려 준 경우입니다. 수치를 모르면 `대부분`과 `일부`를 그대로 둡니다. 예시를 더 보려면 [references/judgment.md](references/judgment.md)를 읽습니다.
 
 ## 규칙
 
-글이 놓일 자리(표면)를 먼저 정합니다. 문장 길이는 상한이 아니라 다시 읽어 볼 신호입니다.
+스킬은 먼저 글이 놓일 자리(표면)를 정합니다. 문장 길이는 상한이 아니라 다시 읽어 볼 신호입니다.
 
 | 표면 | 자리 | 문장 길이 신호 |
 |---|---|---|
@@ -106,7 +106,7 @@ git -C ~/.claude/skills/ste-ko pull
 | `대화` | Slack, 이메일, 리뷰 코멘트, AI 답변 | 25어절 |
 | `UI` | 버튼, 라벨, 안내, 오류 메시지 | 12어절 |
 
-반드시 지키는 규칙은 일곱입니다. 괄호 안 번호는 [STE-KO 규칙 본문](references/upstream/SPEC.md)의 번호입니다.
+반드시 지키는 규칙은 7개입니다. 괄호 안 번호는 [STE-KO 규칙 본문](references/upstream/SPEC.md)의 번호입니다.
 
 1. 결론과 현재 상태를 먼저 씁니다 (6.1).
 2. 같은 대상은 같은 단어로 부릅니다 (1.2).
@@ -140,7 +140,7 @@ docs/장애보고.md:7	8.1	hard	범위에 물결표 `3~5` — 마크다운이 �
 | `warn` | 번역투, 공문투, 빈 동사, 명사화, 긴 문장 | 0 (`--strict`면 1) |
 | `info` | 모호어, 완충어, 수치 표현 | 0, `--all`로 봅니다 |
 
-결론 위치, 명사 나열, 사실과 추론 구분은 문맥이 필요해서 검사기가 보지 않습니다. 이 규칙은 스킬을 쓰는 에이전트가 판단합니다.
+결론 위치, 명사 나열, 사실과 추론 구분은 문맥이 필요해서 검사기가 보지 않습니다. 이 세 규칙은 스킬을 쓰는 에이전트가 판단합니다.
 
 <details>
 <summary>커밋 메시지 훅에 걸기</summary>
@@ -180,7 +180,7 @@ python3 ~/.claude/skills/ste-ko/scripts/ste-ko-lint.py "$1" --surface 코딩
 | 모든 답을 다음 행동으로 끝냄 | 실행이나 결정이 필요한 글에만 씁니다 |
 | 매 응답에 강제 적용 (플러그인 출력 스타일) | 문서는 스킬로 쓰고, 대화 답변은 설정에 넣었을 때만 적용합니다 |
 
-원본 검사기는 사전 표현 상당수를 잡지 못했습니다. 같은 문장을 두 검사기로 돌린 결과입니다. 고친 내용은 원본에도 [beamonic/ste-ko#1](https://github.com/beamonic/ste-ko/pull/1)로 제안했습니다.
+아래 표는 같은 문장 7개를 두 검사기로 돌린 결과입니다. 원본 검사기는 위반 5개를 잡지 못했고, 위반이 아닌 문장 1개를 위반으로 잡았습니다. 고친 내용은 원본에도 [beamonic/ste-ko#1](https://github.com/beamonic/ste-ko/pull/1)로 제안했습니다.
 
 | 문장 | 원본 | 이 스킬 |
 |---|---|---|
@@ -202,7 +202,7 @@ references/upstream/SPEC.md         STE-KO 규칙 본문 원문
 references/upstream/dictionary.md   비승인 표현 대응표 원문
 scripts/ste-ko-lint.py              검사기
 tests/test_skill.py                 검사기와 스킬 파일 테스트
-assets/banner.html                  배너 원본
+assets/banner.html                  배너 소스 (HTML)
 ```
 
 ## 기여하기
@@ -212,7 +212,7 @@ assets/banner.html                  배너 원본
 - 테스트는 `python3 -m unittest discover -s tests`로 돌립니다. PR을 열면 GitHub Actions가 Python 3.9와 3.12에서 같은 테스트를 돌립니다.
 - 검사기를 고치면 `--self-test`에 잡아야 할 문장과 놓아줘야 할 문장을 함께 넣습니다.
 - `references/upstream/`의 규칙 본문과 대응표는 원문 그대로 둡니다. 어휘 항목을 바꾸려면 원본 [beamonic/ste-ko](https://github.com/beamonic/ste-ko)에 제안합니다.
-- 문서는 이 스킬 규칙으로 씁니다. PR 전에 검사기로 `hard` 위반이 없는지 확인합니다.
+- 문서는 이 스킬 규칙으로 씁니다. PR을 열기 전에 검사기로 `hard` 위반이 없는지 확인합니다.
 
 ## 관련 프로젝트
 
@@ -230,13 +230,13 @@ Install it with `git clone https://github.com/junwonkim07/ste-ko-skill ~/.claude
 
 ## 배너
 
-배너는 옛 목판본의 판면을 본떴습니다. 굵은 바깥선과 가는 안선(광곽), 칸을 나누는 줄(계선), 가운데 접는 칸(판심)과 검은 어미가 있습니다. 오른쪽 세로글은 훈민정음 언해 서문 첫 구절을 현대 음절로 옮긴 것입니다. 낙관 `訓機正文`은 `訓民正音`(백성을 가르치는 바른 소리)을 바꿔 `기계를 가르치는 바른 글`이라는 뜻으로 지었습니다. 원본은 [assets/banner.html](assets/banner.html)입니다.
+배너는 옛 목판본의 판면을 본떴습니다. 굵은 바깥선과 가는 안선(광곽), 칸을 나누는 줄(계선), 가운데 접는 칸(판심)과 검은 어미가 있습니다. 오른쪽 큰 세로글은 훈민정음 언해 서문의 첫 구절과 `便安킈 하고져`를 현대 음절로 옮긴 것입니다. 가는 두 줄 주석 `바른 글은 읽는 이가 다시 묻지 아니하는 글이니라`는 이 저장소에서 새로 지었습니다. 낙관 `訓機正文`은 `訓民正音`(백성을 가르치는 바른 소리)을 바꿔 `기계를 가르치는 바른 글`이라는 뜻으로 지었습니다. 배너 소스는 [assets/banner.html](assets/banner.html)입니다.
 
 ## 출처와 라이선스
 
 - [beamonic/ste-ko](https://github.com/beamonic/ste-ko) (MIT, Copyright (c) 2026 Beamonic): `references/upstream/`의 SPEC.md와 dictionary.md는 커밋 `fd351fe` 원문 그대로입니다. 검사기는 원본 `scripts/lint.py`를 고쳐 썼습니다.
 - [Gudals0320/asd-ste100-kor](https://github.com/Gudals0320/asd-ste100-kor) (MIT): 판단 기준의 방향을 참고했습니다. 문장과 예시는 새로 썼습니다.
-- ASD-STE100은 ASD(Aerospace, Security and Defence Industries Association of Europe)의 저작물입니다. 이 저장소에는 ASD-STE100 원문과 사전이 없습니다. 공식 번역이나 인증된 구현이 아닙니다.
-- 배너의 언해 서문 구절은 15세기 문헌입니다.
+- ASD-STE100은 ASD(Aerospace, Security and Defence Industries Association of Europe)의 저작물입니다. 이 저장소에는 ASD-STE100 원문과 사전이 없습니다. 이 저장소는 ASD-STE100의 공식 번역이나 인증된 구현이 아닙니다.
+- 배너의 언해 서문 구절은 15세기 문헌에서 왔습니다.
 
 이 저장소는 [MIT 라이선스](LICENSE)를 따릅니다. 원본 고지는 [NOTICE.md](NOTICE.md)에 있습니다.
