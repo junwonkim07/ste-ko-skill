@@ -64,11 +64,19 @@ README 번역투 빼줘
 이 PR 본문 STE-KO로 다시 써줘. 무엇을 고쳤는지 표로도 보여줘
 ```
 
-규칙을 끄려면 플러그인을 끕니다. 다시 켜면 출력 스타일도 다시 적용됩니다.
+### 켜고 끄기
+
+플러그인을 끄면 스킬과 출력 스타일이 함께 꺼집니다. 다시 켜면 둘 다 다시 적용됩니다. 바꾼 상태는 새 세션부터 적용됩니다. Claude에게 "STE-KO 꺼줘", "STE-KO 켜줘"라고 해도 같은 명령을 실행합니다.
 
 ```bash
 claude plugin disable ste-ko@ste-ko-skill
 ```
+
+```bash
+claude plugin enable ste-ko@ste-ko-skill
+```
+
+규칙을 고치려면 저장소를 포크해서 [output-styles/ste-ko.md](output-styles/ste-ko.md)와 [SKILL.md](SKILL.md)를 고칩니다. 그다음 `/plugin marketplace add <내 계정>/ste-ko-skill`로 포크한 저장소를 설치합니다.
 
 ### 무엇이 켜지나
 
