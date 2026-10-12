@@ -2,13 +2,20 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ste-ko",
   "displayName": "STE-KO",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "한국어 대화 답변과 업무 글에 STE-KO 규칙을 적용하는 스킬과 출력 스타일입니다.",
-  "author": { "name": "Junwon Kim" },
+  "author": {
+    "name": "Junwon Kim"
+  },
   "homepage": "https://github.com/junwonkim07/ste-ko-skill",
   "repository": "https://github.com/junwonkim07/ste-ko-skill",
   "license": "MIT",
-  "keywords": ["korean", "controlled-language", "writing", "ste-ko"],
+  "keywords": [
+    "korean",
+    "controlled-language",
+    "writing",
+    "ste-ko"
+  ],
   "skills": "./",
   "outputStyles": "./output-styles/ste-ko.md"
 }
