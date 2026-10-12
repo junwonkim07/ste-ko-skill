@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  README 배너 원본. 훈민정음 해례본·언해본 판면(광곽, 계선, 판심, 어미)을 본떴다.
+  README 배너 소스. 훈민정음 해례본·언해본 판면(광곽, 계선, 판심, 어미)을 본떴다.
   assets/banner.jpg 는 이 파일을 1280x400 CSS px, 기기 배율 2(2560x800)로 찍어 JPEG 품질 88로 저장한 것이다.
   종이 결 잡음 때문에 PNG는 2MB가 넘어서 JPEG를 쓴다.
   옛한글 조합을 지원하는 기본 글꼴이 없어서 언해 서문은 현대 음절로 옮겨 적었다.
@@ -33,40 +33,23 @@
   svg.layer { position: absolute; inset: 0; }
   .ink { filter: url(#inkbleed); }
 
-  /* 왼쪽 면: 제목 */
+  /* 왼쪽 면: 제목만 둔다. 세로 가운데 */
   .title {
     position: absolute;
     left: 78px;
-    top: 74px;
+    top: 132px;
     font-family: "Baskerville", "PT Serif", serif;
     font-weight: 700;
     font-size: 104px;
     letter-spacing: 6px;
     line-height: 1;
   }
-  .tagline {
-    position: absolute;
-    left: 82px;
-    top: 206px;
-    font-size: 40px;
-    letter-spacing: 2px;
-  }
-  .tagline em { font-style: normal; color: var(--vermilion); }
-  .desc {
-    position: absolute;
-    left: 84px;
-    top: 276px;
-    font-size: 19px;
-    letter-spacing: 0.5px;
-    color: var(--ink-soft);
-  }
-  .desc span { margin: 0 10px; color: var(--vermilion); }
 
   /* 낙관: 訓機正文 (백성 民 대신 기계 機, 소리 音 대신 글 文) */
   .seal {
     position: absolute;
     left: 600px;
-    top: 72px;
+    top: 140px;
     width: 92px;
     height: 92px;
     transform: rotate(-4deg);
@@ -192,14 +175,9 @@
       <polygon points="773,92 815,92 815,112 794,101 773,112"/>
       <polygon points="773,298 794,287 815,298 815,306 773,306"/>
     </g>
-
-    <!-- 제목 아래 가는 줄 -->
-    <line class="ink" x1="82" y1="190" x2="470" y2="190" stroke="#b0281c" stroke-width="2"/>
   </svg>
 
   <div class="title ink">STE-KO</div>
-  <div class="tagline ink">기계를 가르치는 <em>바른 글</em></div>
-  <div class="desc">AI 에이전트를 위한 한국어 통제 언어 스킬<span>·</span>ASD-STE100 방식</div>
 
   <div class="seal" aria-label="訓機正文">
     <div class="box"></div>

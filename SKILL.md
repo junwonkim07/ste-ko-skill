@@ -1,6 +1,6 @@
 ---
 name: ste-ko
-description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기술 문서, README, 장애·작업 보고, 커밋 메시지, PR 본문, 코드 주석, Slack·Notion·이메일 업무 글, UI 문구, 오류 메시지. ASD-STE100 방식의 한국어 통제 언어 규격(STE-KO)으로 결론을 먼저 쓰고, 한 대상은 한 단어로 부르고, 이중피동·번역투·빈 동사를 걷어내고, 사실·추론·미확인을 나눈다. 사실·조건·부정·수치·확신 수준은 바꾸지 않는다. '쉽게 고쳐줘', '번역투 빼줘', '간결하게', '읽기 쉽게', 'STE-KO', '/ste-ko' 요청에 쓴다. 대화 답변에는 사용자가 설정으로 켰을 때 `대화` 표면으로 쓴다. 홍보·창작·법률 문구에는 쓰지 않는다. Korean controlled-language writing for docs, commits, PRs, work messages and UI copy. For English text use the asd-ste100 skill."
+description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기술 문서, README, 장애·작업 보고, 커밋 메시지, PR 본문, 코드 주석, Slack·Notion·이메일 업무 글, UI 문구, 오류 메시지. ASD-STE100 방식의 한국어 통제 언어 규격(STE-KO)으로 결론을 먼저 쓰고, 한 대상은 한 단어로 부르고, 이중피동·번역투·빈 동사를 걷어내고, 사실·추론·미확인을 나눈다. 사실·조건·부정·수치·확신 수준은 바꾸지 않는다. '쉽게 고쳐줘', '번역투 빼줘', '간결하게', '읽기 쉽게', 'STE-KO', '/ste-ko' 요청에 쓴다. 대화 답변은 플러그인 출력 스타일이 `대화` 표면으로 맡는다. 홍보·창작·법률 문구에는 쓰지 않는다. Korean controlled-language writing for docs, commits, PRs, work messages and UI copy. For English text use the asd-ste100 skill."
 ---
 
 # STE-KO
@@ -16,7 +16,7 @@ description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기
 | 기술 문서, README, 절차서, 장애 보고, 상태 보고 | 홍보 문안, 창작, 감상문 |
 | 커밋 메시지, PR 본문, 코드 주석, 작업 보고 | 법률 문구, 계약서, 인용문 |
 | Slack·Notion·이메일 업무 글, 리뷰 코멘트, UI 문구 | 코드, 로그, 명령어, 식별자 자체 |
-| AI 대화 답변 (설정으로 켰을 때, 아래 "대화 답변") | |
+| AI 대화 답변 (플러그인 출력 스타일이 적용, 아래 "대화 답변") | |
 
 영어 글은 `asd-ste100` 스킬을 쓴다.
 
@@ -47,7 +47,7 @@ description: "한국어로 남이 읽을 글을 쓰거나 고칠 때 쓴다: 기
 
 ## 대화 답변
 
-스킬은 매 답변에 불리지 않는다. 대화 답변에도 적용하려면 `references/chat-preferences.md`의 블록을 `~/.claude/CLAUDE.md`나 claude.ai 개인 설정에 넣는다.
+스킬은 매 답변에 불리지 않는다. 플러그인으로 설치하면 출력 스타일 `output-styles/ste-ko.md`가 모든 대화 답변에 아래 규칙을 적용한다. 플러그인 없이 쓰면 `references/chat-preferences.md`의 블록을 `~/.claude/CLAUDE.md`나 claude.ai 개인 설정에 넣는다.
 
 대화 답변에는 `대화` 표면 규칙을 쓴다.
 

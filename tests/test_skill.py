@@ -31,6 +31,19 @@ class SkillFileTest(unittest.TestCase):
                     "LICENSE", "NOTICE.md"):
             self.assertTrue((ROOT / rel).is_file(), f"{rel} 가 없다")
 
+    def test_plugin_manifest(self):
+        import json
+        manifest = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["name"], "ste-ko")
+        style = ROOT / manifest["outputStyles"]
+        self.assertTrue(style.is_file(), f"{style} 가 없다")
+        front = re.match(r"^---\n(.*?)\n---\n", style.read_text(encoding="utf-8"), re.S).group(1)
+        # 플러그인을 켜면 모든 답변에 적용되고, 코딩 지침은 남아야 한다.
+        self.assertRegex(front, r"(?m)^force-for-plugin: true$")
+        self.assertRegex(front, r"(?m)^keep-coding-instructions: true$")
+        market = json.loads((ROOT / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8"))
+        self.assertIn("ste-ko", [p["name"] for p in market["plugins"]])
+
     def test_readme_local_links_exist(self):
         text = (ROOT / "README.md").read_text(encoding="utf-8")
         targets = re.findall(r"\]\(([^)#\s]+)\)", text) + re.findall(r'(?:src|href)="([^"#]+)"', text)
