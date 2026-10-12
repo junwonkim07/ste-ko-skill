@@ -35,17 +35,28 @@ STE-KO 스킬은 Claude Code가 한국어 기술 문서, 커밋 메시지, PR �
 - 확인한 사실, 추론, 모르는 것을 나눕니다. 실행하지 않은 테스트를 통과했다고 쓰지 않습니다.
 - `일 수 있다`, `약 30분` 같은 확신 수준과 조건, 부정, 수치는 바꾸지 않습니다. 없는 사실을 만들지 않습니다.
 - 의존성 없는 파이썬 검사기가 기계로 셀 수 있는 규칙의 위반을 찾습니다. 검사기는 CI와 커밋 훅에서 돌릴 수 있습니다.
-- 설정 블록을 넣으면 Claude Code와 claude.ai의 대화 답변에도 같은 규칙을 씁니다.
+- 플러그인을 설치하면 출력 스타일이 함께 켜져서 모든 한국어 대화 답변에 같은 규칙을 씁니다.
 
 ## 빠른 시작
 
-Claude Code 사용자 스킬 폴더에 받습니다.
+Claude Code에서 플러그인으로 설치합니다. 플러그인을 설치하면 스킬, 검사기, 출력 스타일이 함께 켜집니다.
 
-```bash
-git clone https://github.com/junwonkim07/ste-ko-skill ~/.claude/skills/ste-ko
+```text
+/plugin marketplace add junwonkim07/ste-ko-skill
+/plugin install ste-ko@ste-ko-skill
 ```
 
-새 세션을 열고 한국어 글을 쓰거나 고쳐 달라고 합니다. 스킬 이름을 부르지 않아도 됩니다.
+터미널에서는 같은 일을 이 명령으로 합니다.
+
+```bash
+claude plugin marketplace add junwonkim07/ste-ko-skill
+```
+
+```bash
+claude plugin install ste-ko@ste-ko-skill
+```
+
+새 세션을 엽니다. 그 뒤로 한국어 대화 답변은 모두 STE-KO `대화` 규칙으로 나옵니다. 문서, 커밋, PR을 쓰거나 고쳐 달라고 하면 스킬이 불립니다. 스킬 이름을 부르지 않아도 됩니다.
 
 ```text
 이 장애 보고 읽기 쉽게 고쳐줘
@@ -53,20 +64,31 @@ README 번역투 빼줘
 이 PR 본문 STE-KO로 다시 써줘. 무엇을 고쳤는지 표로도 보여줘
 ```
 
-업데이트는 `git pull`로 받습니다. 프로젝트 하나에만 쓰려면 그 저장소의 `.claude/skills/ste-ko`에 받습니다.
+규칙을 끄려면 플러그인을 끕니다. 다시 켜면 출력 스타일도 다시 적용됩니다.
 
 ```bash
-git -C ~/.claude/skills/ste-ko pull
+claude plugin disable ste-ko@ste-ko-skill
 ```
 
-### 대화 답변에도 적용하기
+### 무엇이 켜지나
 
-스킬은 문서, 커밋, PR을 쓸 때 불립니다. 매 답변에는 불리지 않습니다. 대화 답변에도 적용하려면 [references/chat-preferences.md](references/chat-preferences.md)의 블록을 설정에 넣습니다.
-
-| 어디서 | 넣는 곳 |
+| 구성 요소 | 적용 범위 |
 |---|---|
-| Claude Code | `~/.claude/CLAUDE.md` |
-| claude.ai, 데스크톱 앱 채팅 | 설정 → 계정 → 프로필 → "Claude 지침" |
+| 출력 스타일 [output-styles/ste-ko.md](output-styles/ste-ko.md) | 플러그인이 켜진 동안 모든 세션의 모든 답변. 다른 출력 스타일 설정보다 앞섭니다 (`force-for-plugin`) |
+| 스킬 [SKILL.md](SKILL.md) | 문서, 커밋, PR, 업무 글을 쓰거나 고칠 때 |
+| 검사기 [scripts/ste-ko-lint.py](scripts/ste-ko-lint.py) | 스킬이 10줄이 넘는 글을 검사할 때, 또는 직접 실행할 때 |
+
+출력 스타일은 Claude Code의 코딩 지침을 지우지 않습니다 (`keep-coding-instructions: true`).
+
+### 플러그인 없이 쓰기
+
+스킬만 쓰려면 사용자 스킬 폴더에 받습니다. 이 방법으로는 출력 스타일이 켜지지 않습니다. 대화 답변에도 적용하려면 [references/chat-preferences.md](references/chat-preferences.md)의 블록을 `~/.claude/CLAUDE.md`에 넣습니다.
+
+```bash
+git clone https://github.com/junwonkim07/ste-ko-skill ~/.claude/skills/ste-ko
+```
+
+claude.ai와 데스크톱 앱 채팅은 플러그인 출력 스타일을 읽지 않습니다. 이 두 곳에서는 같은 파일의 블록을 설정 → 계정 → 프로필 → "Claude 지침"에 넣습니다.
 
 ## 전후 비교
 
@@ -178,7 +200,7 @@ python3 ~/.claude/skills/ste-ko/scripts/ste-ko-lint.py "$1" --surface 코딩
 | 비유 금지 | 설명 글에서는 차이를 밝히고 씁니다 |
 | `-하십시오`로 통일 | 사용자와 기존 글의 말투를 따릅니다 |
 | 모든 답을 다음 행동으로 끝냄 | 실행이나 결정이 필요한 글에만 씁니다 |
-| 매 응답에 강제 적용 (플러그인 출력 스타일) | 문서는 스킬로 쓰고, 대화 답변은 설정에 넣었을 때만 적용합니다 |
+| 출력 스타일에 원본 규칙을 그대로 넣음 | 출력 스타일에도 위 판단 기준을 넣습니다. 플러그인으로 켜는 방식은 같습니다 |
 
 아래 표는 같은 문장 7개를 두 검사기로 돌린 결과입니다. 원본 검사기는 위반 5개를 잡지 못했고, 위반이 아닌 문장 1개를 위반으로 잡았습니다. 고친 내용은 원본에도 [beamonic/ste-ko#1](https://github.com/beamonic/ste-ko/pull/1)로 제안했습니다.
 
@@ -195,9 +217,12 @@ python3 ~/.claude/skills/ste-ko/scripts/ste-ko-lint.py "$1" --surface 코딩
 ## 구성
 
 ```text
+.claude-plugin/plugin.json          플러그인 매니페스트
+.claude-plugin/marketplace.json     마켓플레이스 목록
+output-styles/ste-ko.md             모든 답변에 적용하는 출력 스타일
 SKILL.md                            스킬 본문 (에이전트가 읽는 규칙)
 references/judgment.md              느슨하게 적용하는 판단 기준과 전후 예시
-references/chat-preferences.md      대화 답변에 적용하는 설정 블록
+references/chat-preferences.md      플러그인 없이 대화 답변에 적용하는 설정 블록
 references/upstream/SPEC.md         STE-KO 규칙 본문 원문
 references/upstream/dictionary.md   비승인 표현 대응표 원문
 scripts/ste-ko-lint.py              검사기
@@ -226,7 +251,7 @@ STE-KO skill is a Claude Code skill for Korean technical writing. It makes an AI
 
 The rules come from [STE-KO](https://github.com/beamonic/ste-ko), a Korean controlled language based on the approach of ASD-STE100. This skill keeps the meaning of the source text. It does not remove hedges, estimates or the writer's register. It also includes a linter with no dependencies. The linter finds dictionary terms that the upstream linter does not find.
 
-Install it with `git clone https://github.com/junwonkim07/ste-ko-skill ~/.claude/skills/ste-ko`. For English text, use [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill).
+Install it as a Claude Code plugin with `/plugin marketplace add junwonkim07/ste-ko-skill` and `/plugin install ste-ko@ste-ko-skill`. The plugin also turns on an output style. The output style applies the rules to all chat replies while the plugin is on. For English text, use [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill).
 
 ## 배너
 

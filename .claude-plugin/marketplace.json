@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ste-ko-skill",
+  "description": "STE-KO 한국어 글쓰기 스킬과 출력 스타일",
+  "owner": { "name": "Junwon Kim" },
+  "plugins": [
+    {
+      "name": "ste-ko",
+      "description": "STE-KO 스킬, 모든 한국어 답변에 적용하는 출력 스타일, 검사기를 묶은 플러그인입니다.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}
