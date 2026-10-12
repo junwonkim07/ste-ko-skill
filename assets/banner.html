@@ -1,0 +1,221 @@
+<!doctype html>
+<!--
+  README 배너 원본. 훈민정음 해례본·언해본 판면(광곽, 계선, 판심, 어미)을 본떴다.
+  assets/banner.jpg 는 이 파일을 1280x400 CSS px, 기기 배율 2(2560x800)로 찍어 JPEG 품질 88로 저장한 것이다.
+  종이 결 잡음 때문에 PNG는 2MB가 넘어서 JPEG를 쓴다.
+  옛한글 조합을 지원하는 기본 글꼴이 없어서 언해 서문은 현대 음절로 옮겨 적었다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>STE-KO banner</title>
+<style>
+  :root {
+    --paper: #efe2c4;
+    --paper-deep: #e2cfa6;
+    --ink: #221911;
+    --ink-soft: #5b4733;
+    --vermilion: #b0281c;
+  }
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  #banner {
+    position: relative;
+    width: 1280px;
+    height: 400px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 18% 30%, rgba(255, 250, 235, 0.55), transparent 55%),
+      radial-gradient(ellipse at 85% 75%, rgba(180, 140, 80, 0.16), transparent 60%),
+      radial-gradient(ellipse at 50% 50%, var(--paper) 55%, var(--paper-deep) 100%);
+    font-family: "AppleMyungjo", serif;
+    color: var(--ink);
+  }
+  svg.layer { position: absolute; inset: 0; }
+  .ink { filter: url(#inkbleed); }
+
+  /* 왼쪽 면: 제목 */
+  .title {
+    position: absolute;
+    left: 78px;
+    top: 74px;
+    font-family: "Baskerville", "PT Serif", serif;
+    font-weight: 700;
+    font-size: 104px;
+    letter-spacing: 6px;
+    line-height: 1;
+  }
+  .tagline {
+    position: absolute;
+    left: 82px;
+    top: 206px;
+    font-size: 40px;
+    letter-spacing: 2px;
+  }
+  .tagline em { font-style: normal; color: var(--vermilion); }
+  .desc {
+    position: absolute;
+    left: 84px;
+    top: 276px;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    color: var(--ink-soft);
+  }
+  .desc span { margin: 0 10px; color: var(--vermilion); }
+
+  /* 낙관: 訓機正文 (백성 民 대신 기계 機, 소리 音 대신 글 文) */
+  .seal {
+    position: absolute;
+    left: 600px;
+    top: 72px;
+    width: 92px;
+    height: 92px;
+    transform: rotate(-4deg);
+    filter: url(#stamp);
+  }
+  .seal .box {
+    position: absolute;
+    inset: 0;
+    background: var(--vermilion);
+    border-radius: 6px;
+  }
+  .seal .chars {
+    position: absolute;
+    inset: 9px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-flow: column;
+    direction: rtl;
+    font-size: 33px;
+    line-height: 1;
+    color: var(--paper);
+    text-align: center;
+  }
+  .seal .chars span { display: flex; align-items: center; justify-content: center; }
+
+  /* 판심 */
+  .pansim-title {
+    position: absolute;
+    left: 772px;
+    top: 128px;
+    width: 44px;
+    writing-mode: vertical-rl;
+    font-size: 19px;
+    letter-spacing: 6px;
+    text-align: center;
+    line-height: 44px;
+  }
+  .pansim-page {
+    position: absolute;
+    left: 772px;
+    top: 318px;
+    width: 44px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  /* 오른쪽 면: 언해 서문 */
+  .col {
+    position: absolute;
+    top: 54px;
+    height: 296px;
+    width: 71.5px;
+    writing-mode: vertical-rl;
+    font-size: 33px;
+    line-height: 71.5px;
+    letter-spacing: 2px;
+    text-align: start;
+  }
+  .note {
+    position: absolute;
+    top: 58px;
+    height: 292px;
+    width: 71.5px;
+    padding-right: 6px;
+    box-sizing: border-box;
+    writing-mode: vertical-rl;
+    font-size: 17px;
+    line-height: 30px;
+    letter-spacing: 2px;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<div id="banner">
+  <svg class="layer" width="1280" height="400" viewBox="0 0 1280 400" aria-hidden="true">
+    <defs>
+      <filter id="paper" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="grain"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.26  0 0 0 0 0.12  0 0 0 0.10 0" in="grain"/>
+      </filter>
+      <filter id="fibers" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.18" numOctaves="2" seed="3" result="f"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.35  0 0 0 0 0.18  0 0 0 0.07 0" in="f"/>
+      </filter>
+      <filter id="inkbleed" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="stamp" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="5" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="1" seed="9" result="speck"/>
+        <feColorMatrix in="speck" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.32" result="mask"/>
+        <feComposite in="d" in2="mask" operator="in"/>
+      </filter>
+    </defs>
+
+    <!-- 종이 결 -->
+    <rect width="1280" height="400" filter="url(#paper)"/>
+    <rect width="1280" height="400" filter="url(#fibers)"/>
+
+    <g class="ink" stroke="#221911" fill="none">
+      <!-- 광곽: 굵은 바깥선과 가는 안선 (사주쌍변) -->
+      <rect x="24" y="22" width="1232" height="356" stroke-width="5"/>
+      <rect x="33" y="31" width="1214" height="338" stroke-width="1.4"/>
+      <!-- 판심 경계 -->
+      <line x1="770" y1="31" x2="770" y2="369" stroke-width="1.4"/>
+      <line x1="818" y1="31" x2="818" y2="369" stroke-width="1.4"/>
+      <!-- 계선: 오른쪽 면 칸 -->
+      <g stroke-width="1" opacity="0.85">
+        <line x1="889.5" y1="31" x2="889.5" y2="369"/>
+        <line x1="961" y1="31" x2="961" y2="369"/>
+        <line x1="1032.5" y1="31" x2="1032.5" y2="369"/>
+        <line x1="1104" y1="31" x2="1104" y2="369"/>
+        <line x1="1175.5" y1="31" x2="1175.5" y2="369"/>
+      </g>
+    </g>
+
+    <!-- 판심의 흑어미: 위는 아래를, 아래는 위를 향한다 -->
+    <g class="ink" fill="#221911">
+      <polygon points="773,92 815,92 815,112 794,101 773,112"/>
+      <polygon points="773,298 794,287 815,298 815,306 773,306"/>
+    </g>
+
+    <!-- 제목 아래 가는 줄 -->
+    <line class="ink" x1="82" y1="190" x2="470" y2="190" stroke="#b0281c" stroke-width="2"/>
+  </svg>
+
+  <div class="title ink">STE-KO</div>
+  <div class="tagline ink">기계를 가르치는 <em>바른 글</em></div>
+  <div class="desc">AI 에이전트를 위한 한국어 통제 언어 스킬<span>·</span>ASD-STE100 방식</div>
+
+  <div class="seal" aria-label="訓機正文">
+    <div class="box"></div>
+    <div class="chars"><span>訓</span><span>機</span><span>正</span><span>文</span></div>
+  </div>
+
+  <div class="pansim-title ink">訓機正文</div>
+  <div class="pansim-page ink">一</div>
+
+  <!-- 오른쪽에서 왼쪽으로 읽는다 -->
+  <div class="col ink" style="left:1175.5px">나랏말싸미</div>
+  <div class="col ink" style="left:1104px">듕귁에 달아</div>
+  <div class="col ink" style="left:1032.5px">문짜와로 서르</div>
+  <div class="col ink" style="left:961px">사맛디 아니할쎄</div>
+  <div class="note ink" style="left:889.5px">바른 글은 읽는 이가 다시 묻지 아니하는 글이니라</div>
+  <div class="col ink" style="left:818px">便安킈 하고져</div>
+</div>
+</body>
+</html>

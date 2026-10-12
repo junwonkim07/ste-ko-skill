@@ -31,6 +31,14 @@ class SkillFileTest(unittest.TestCase):
                     "LICENSE", "NOTICE.md"):
             self.assertTrue((ROOT / rel).is_file(), f"{rel} 가 없다")
 
+    def test_readme_local_links_exist(self):
+        text = (ROOT / "README.md").read_text(encoding="utf-8")
+        targets = re.findall(r"\]\(([^)#\s]+)\)", text) + re.findall(r'(?:src|href)="([^"#]+)"', text)
+        local = [t for t in targets if not t.startswith(("http://", "https://", "mailto:"))]
+        self.assertIn("assets/banner.jpg", local)
+        missing = [t for t in local if not (ROOT / t).exists()]
+        self.assertEqual(missing, [], f"README 링크 대상이 없다: {missing}")
+
     def test_own_docs_have_no_hard_violations(self):
         for rel in ("SKILL.md", "README.md", "references/judgment.md", "references/chat-preferences.md", "NOTICE.md"):
             r = run_lint(str(ROOT / rel))
